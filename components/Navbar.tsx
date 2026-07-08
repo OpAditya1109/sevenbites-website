@@ -67,6 +67,18 @@ export default function Navbar() {
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
           <Link
+            href="/restaurant-login"
+            className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            Restaurant Login
+          </Link>
+          <Link
+            href="/restaurant-signup"
+            className="text-sm font-semibold text-[#E23744] border border-[#E23744]/30 px-4 py-2 rounded-full hover:bg-red-50 transition-colors"
+          >
+            Partner With Us
+          </Link>
+          <Link
             href="/#order"
             className="gradient-primary text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:shadow-lg hover:shadow-red-200 transition-all duration-300 hover:scale-105"
           >
@@ -104,7 +116,21 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <div className="pt-2">
+            <div className="pt-2 space-y-2">
+              <Link
+                href="/restaurant-login"
+                onClick={() => setMobileOpen(false)}
+                className="block w-full text-center text-sm font-medium text-gray-700 hover:text-[#E23744] px-5 py-3 rounded-xl border border-gray-200"
+              >
+                Restaurant Login
+              </Link>
+              <Link
+                href="/restaurant-signup"
+                onClick={() => setMobileOpen(false)}
+                className="block w-full text-center text-sm font-semibold text-[#E23744] px-5 py-3 rounded-xl border border-[#E23744]/30"
+              >
+                Partner With Us
+              </Link>
               <Link
                 href="/#order"
                 onClick={() => setMobileOpen(false)}
