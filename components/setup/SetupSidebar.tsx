@@ -75,13 +75,7 @@ export default function SetupSidebar({
         })}
       </nav>
 
-      <div className="px-4 py-4 border-t border-emerald-900/10 flex-shrink-0">
-        <div className="rounded-xl bg-white/5 px-4 py-3">
-          <p className="text-xs text-emerald-100/50 leading-relaxed">
-            Everything you configure here goes live in the SevenBites Customer App automatically.
-          </p>
-        </div>
-      </div>
+   
     </div>
   );
 
