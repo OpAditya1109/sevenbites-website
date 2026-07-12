@@ -10,6 +10,7 @@ import {
   UtensilsCrossed,
   Leaf,
   X,
+  ClipboardList,
 } from "lucide-react";
 
 const navItems = [
@@ -17,6 +18,7 @@ const navItems = [
   { href: "/restaurant-setup/timings", label: "Restaurant Timings", icon: Clock },
   { href: "/restaurant-setup/categories", label: "Categories", icon: LayoutGrid },
   { href: "/restaurant-setup/menu", label: "Menu Management", icon: UtensilsCrossed },
+  { href: "/restaurant-setup/orders", label: "Orders", icon: ClipboardList },
 ];
 
 export default function SetupSidebar({
