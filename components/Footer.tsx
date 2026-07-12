@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Flame, Globe, Share2, PlayCircle, X as XIcon } from "lucide-react";
 
 const quickLinks = [
@@ -23,6 +24,14 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // The Restaurant Setup Module dashboard has its own layout and shouldn't
+  // show the public marketing footer.
+  if (pathname?.startsWith("/restaurant-setup")) {
+    return null;
+  }
+
   return (
     <footer className="bg-gray-950 text-gray-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">

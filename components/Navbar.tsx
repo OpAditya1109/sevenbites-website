@@ -24,6 +24,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // The Restaurant Setup Module dashboard has its own sidebar + top nav,
+  // so the public marketing navbar shouldn't render there.
+  if (pathname?.startsWith("/restaurant-setup")) {
+    return null;
+  }
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${

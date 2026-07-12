@@ -10,6 +10,7 @@ import {
   FileText,
   LogOut,
   Loader2,
+  ArrowRight,
 } from "lucide-react";
 import {
   fetchRestaurantProfile,
@@ -17,7 +18,13 @@ import {
   RESTAURANT_TOKEN_KEY,
 } from "@/lib/restaurantApi";
 
-function StatusBanner({ status }: { status: RestaurantProfile["status"] }) {
+function StatusBanner({
+  status,
+  onOpenSetup,
+}: {
+  status: RestaurantProfile["status"];
+  onOpenSetup: () => void;
+}) {
   if (status === "pending") {
     return (
       <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-2xl px-5 py-4 mb-8">
@@ -33,14 +40,22 @@ function StatusBanner({ status }: { status: RestaurantProfile["status"] }) {
   }
   if (status === "approved") {
     return (
-      <div className="flex items-start gap-3 bg-green-50 border border-green-200 rounded-2xl px-5 py-4 mb-8">
-        <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-        <div>
-          <p className="font-semibold text-green-900 text-sm">You're approved!</p>
-          <p className="text-green-700 text-sm mt-0.5">
-            Your restaurant is live on SevenBites. Orders will start appearing here soon.
-          </p>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-green-50 border border-green-200 rounded-2xl px-5 py-4 mb-8">
+        <div className="flex items-start gap-3 flex-1">
+          <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-green-900 text-sm">You're approved!</p>
+            <p className="text-green-700 text-sm mt-0.5">
+              Your restaurant is live on SevenBites. Set up your profile, timings, and menu to start taking orders.
+            </p>
+          </div>
         </div>
+        <button
+          onClick={onOpenSetup}
+          className="flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors flex-shrink-0 whitespace-nowrap"
+        >
+          Go to Restaurant Setup <ArrowRight className="w-4 h-4" />
+        </button>
       </div>
     );
   }
@@ -105,6 +120,10 @@ export default function RestaurantDashboardClient() {
     router.push("/restaurant-login");
   }
 
+  function handleOpenSetup() {
+    router.push("/restaurant-setup/profile");
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F8FAFC] pt-20 flex items-center justify-center">
@@ -124,24 +143,34 @@ export default function RestaurantDashboardClient() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] pt-20 pb-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-        <div className="flex items-start justify-between mb-6">
+        <div className="flex items-start justify-between mb-6 gap-4">
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-[#E23744] mb-2 block">
               Partner Dashboard
             </span>
             <h1 className="font-poppins font-bold text-3xl text-gray-900">{restaurant.restaurantName}</h1>
           </div>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-1.5 text-sm font-semibold text-gray-500 hover:text-gray-800 px-4 py-2.5 rounded-full border border-gray-200 hover:border-gray-300 transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-            Log out
-          </button>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {restaurant.status === "approved" && (
+              <button
+                onClick={handleOpenSetup}
+                className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 px-4 py-2.5 rounded-full transition-colors"
+              >
+                Restaurant Setup
+              </button>
+            )}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-1.5 text-sm font-semibold text-gray-500 hover:text-gray-800 px-4 py-2.5 rounded-full border border-gray-200 hover:border-gray-300 transition-colors"
+            >
+              <LogOut className="w-4 h-4" />
+              Log out
+            </button>
+          </div>
         </div>
 
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-          <StatusBanner status={restaurant.status} />
+          <StatusBanner status={restaurant.status} onOpenSetup={handleOpenSetup} />
         </motion.div>
 
         <Section title="Restaurant Details">
@@ -165,6 +194,7 @@ export default function RestaurantDashboardClient() {
                 rel="noopener noreferrer"
                 className="block aspect-square rounded-xl overflow-hidden border border-gray-100"
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={url} alt={`Restaurant photo ${i + 1}`} className="w-full h-full object-cover" />
               </a>
             ))}
@@ -181,6 +211,7 @@ export default function RestaurantDashboardClient() {
                 rel="noopener noreferrer"
                 className="block aspect-square rounded-xl overflow-hidden border border-gray-100"
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={url} alt={`Menu photo ${i + 1}`} className="w-full h-full object-cover" />
               </a>
             ))}
