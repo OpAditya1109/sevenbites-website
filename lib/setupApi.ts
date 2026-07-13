@@ -280,3 +280,48 @@ export async function bulkImportMenuItems(token: string, file: File) {
   });
   return handle<{ success: true; created: number; failed: { row: number; reason: string }[] }>(res);
 }
+
+
+// ---------------------------------------------------------------------------
+// Analytics / Settlement
+// ---------------------------------------------------------------------------
+
+export interface BestSellingItem {
+  name: string;
+  totalQuantity: number;
+}
+
+export interface RestaurantPayout {
+  _id: string;
+  restaurantId: string;
+  periodStart: string;
+  periodEnd: string;
+  totalOrders: number;
+  totalNetSettlement: number;
+  payoutStatus: "pending" | "processed";
+  payoutDate?: string | null;
+  transactionRef?: string;
+  notes?: string;
+  createdAt: string;
+}
+
+export interface RestaurantAnalytics {
+  totalOrders: number;
+  totalSales: number;
+  commissionDeducted: number;
+  fulfilmentCharges: number;
+  paymentGatewayCharges: number;
+  netSettlement: number;
+  bestSellingItems: BestSellingItem[];
+  payoutHistory: RestaurantPayout[];
+}
+
+export async function fetchRestaurantAnalytics(
+  token: string,
+  range: { from?: string; to?: string } = {}
+) {
+  const params = new URLSearchParams(Object.entries(range).filter(([, v]) => v) as [string, string][]);
+  const qs = params.toString() ? `?${params.toString()}` : "";
+  const res = await fetch(`${API_BASE_URL}/api/setup/orders/analytics${qs}`, { headers: authHeaders(token) });
+  return handle<{ success: true; data: RestaurantAnalytics }>(res);
+}

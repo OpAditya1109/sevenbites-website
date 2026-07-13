@@ -23,11 +23,18 @@ export default function RestaurantLoginClient() {
       return;
     }
 
-    setLoading(true);
+ setLoading(true);
     try {
       const res = await loginRestaurant(identifier.trim(), password);
       localStorage.setItem(RESTAURANT_TOKEN_KEY, res.token);
-      router.push("/restaurant-dashboard");
+      // Approved partners go straight to the working dashboard — the
+      // application-status screen (/restaurant-dashboard) is only useful
+      // for pending/rejected applicants.
+      if (res.restaurant.status === "approved") {
+        router.push("/restaurant-setup/profile");
+      } else {
+        router.push("/restaurant-dashboard");
+      }
     } catch (err: any) {
       setError(err?.message || "Invalid credentials. Please try again.");
     } finally {

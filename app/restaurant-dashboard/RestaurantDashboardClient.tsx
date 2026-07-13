@@ -96,14 +96,20 @@ export default function RestaurantDashboardClient() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
+useEffect(() => {
     const token = localStorage.getItem(RESTAURANT_TOKEN_KEY);
     if (!token) {
       router.push("/restaurant-login");
       return;
     }
     fetchRestaurantProfile(token)
-      .then((res) => setRestaurant(res.restaurant))
+      .then((res) => {
+        if (res.restaurant.status === "approved") {
+          router.push("/restaurant-setup/profile");
+          return;
+        }
+        setRestaurant(res.restaurant);
+      })
       .catch((err) => {
         if (err?.status === 401) {
           localStorage.removeItem(RESTAURANT_TOKEN_KEY);
@@ -114,7 +120,6 @@ export default function RestaurantDashboardClient() {
       })
       .finally(() => setLoading(false));
   }, [router]);
-
   function handleLogout() {
     localStorage.removeItem(RESTAURANT_TOKEN_KEY);
     router.push("/restaurant-login");

@@ -11,6 +11,7 @@ import {
   Leaf,
   X,
   ClipboardList,
+  BarChart3,
 } from "lucide-react";
 
 const navItems = [
@@ -19,6 +20,7 @@ const navItems = [
   { href: "/restaurant-setup/categories", label: "Categories", icon: LayoutGrid },
   { href: "/restaurant-setup/menu", label: "Menu Management", icon: UtensilsCrossed },
   { href: "/restaurant-setup/orders", label: "Orders", icon: ClipboardList },
+  { href: "/restaurant-setup/analytics", label: "Analytics", icon: BarChart3 },
 ];
 
 export default function SetupSidebar({
