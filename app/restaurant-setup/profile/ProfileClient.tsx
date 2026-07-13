@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Camera,
@@ -8,7 +9,6 @@ import {
   MapPin,
   Phone,
   Mail,
-  Navigation,
   ShieldCheck,
   FileBadge,
   Loader2,
@@ -24,6 +24,14 @@ import {
   SetupRestaurantProfile,
   getErrorMessage,
 } from "@/lib/setupApi";
+
+// Leaflet touches `window`, so it can only run in the browser — loading it
+// through next/dynamic with ssr:false stops Next.js from trying (and
+// failing) to render it on the server.
+const LocationPicker = dynamic(() => import("@/components/setup/LocationPicker"), {
+  ssr: false,
+  loading: () => <div className="h-64 rounded-xl bg-gray-50 animate-pulse" />,
+});
 
 // Realistic sample data — shown immediately so the page never looks empty,
 // then silently replaced once the real profile loads.
@@ -136,7 +144,16 @@ export default function ProfileClient() {
       formData.append("address", profile.address);
       formData.append("contactNumber", profile.contactNumber);
       formData.append("email", profile.email);
-      formData.append("googleMapLink", profile.googleMapLink || "");
+      // Lat/lng come from the map picker. We still send a googleMapLink so
+      // anything downstream (customer app "Get Directions" etc.) keeps
+      // working, but it's now derived from the pin instead of typed by hand.
+      if (profile.latitude != null) formData.append("latitude", String(profile.latitude));
+      if (profile.longitude != null) formData.append("longitude", String(profile.longitude));
+      const derivedMapLink =
+        profile.latitude != null && profile.longitude != null
+          ? `https://maps.google.com/?q=${profile.latitude},${profile.longitude}`
+          : profile.googleMapLink || "";
+      formData.append("googleMapLink", derivedMapLink);
       formData.append("deliveryRadiusKm", String(profile.deliveryRadiusKm));
       formData.append("fssaiLicenseNumber", profile.fssaiLicenseNumber);
       formData.append("gstNumber", profile.gstNumber || "");
@@ -146,7 +163,7 @@ export default function ProfileClient() {
       const res = await updateSetupProfile(token, formData);
       setProfile(res.restaurant);
       setSaved(true);
-      setTimeout(() => setSaved(false), 2500);
+      setTimeout(() => setSaved(false), 3500);
     } catch (err) {
       setError(getErrorMessage(err, "Could not save changes. Please try again."));
     } finally {
@@ -159,6 +176,22 @@ export default function ProfileClient() {
 
   return (
     <div className="pb-24">
+      {/* Save confirmation — a real toast, top-center, hard to miss and
+          not tucked away in the sticky bar where it went unnoticed before. */}
+      <AnimatePresence>
+        {saved && (
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-[1100] flex items-center gap-2 bg-emerald-600 text-white text-sm font-semibold px-5 py-3 rounded-xl shadow-lg shadow-emerald-900/25"
+          >
+            <CheckCircle2 className="w-4 h-4" />
+            Changes saved successfully
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <SetupTopbar
         title="Restaurant Profile"
         restaurantName={profile.restaurantName}
@@ -278,12 +311,14 @@ export default function ProfileClient() {
                   </Field>
                 </div>
                 <div className="sm:col-span-2">
-                  <Field label="Google Map Location" icon={Navigation} hint="Paste the shareable Google Maps link">
-                    <input
-                      className={inputCls}
-                      placeholder="https://maps.google.com/?q=..."
-                      value={profile.googleMapLink || ""}
-                      onChange={(e) => update("googleMapLink", e.target.value)}
+                  <Field label="Restaurant Location" icon={MapPin} hint="Search or drop a pin — coordinates are captured automatically">
+                    <LocationPicker
+                      latitude={profile.latitude}
+                      longitude={profile.longitude}
+                      onChange={(lat, lng) => {
+                        update("latitude", lat);
+                        update("longitude", lng);
+                      }}
                     />
                   </Field>
                 </div>
@@ -340,16 +375,6 @@ export default function ProfileClient() {
               className="flex items-center gap-1.5 text-sm text-red-600 mr-auto"
             >
               <AlertCircle className="w-4 h-4" /> {error}
-            </motion.span>
-          )}
-          {saved && (
-            <motion.span
-              initial={{ opacity: 0, x: 8 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0 }}
-              className="flex items-center gap-1.5 text-sm text-emerald-600 mr-auto"
-            >
-              <CheckCircle2 className="w-4 h-4" /> Saved successfully
             </motion.span>
           )}
         </AnimatePresence>
