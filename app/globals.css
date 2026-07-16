@@ -149,3 +149,10 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+@layer base {
+  img,
+  video {
+    max-width: 44%;
+    height: auto;
+  }
+}

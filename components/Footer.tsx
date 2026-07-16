@@ -43,11 +43,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <img src="/icon.png" alt="SevenBites" className="w-9 h-9" />
-              <span className="font-poppins font-bold text-2xl text-white">
-                Seven<span className="text-[#E23744]">Bites</span>
-              </span>
-            </Link>
+             <img
+  src="/logo_white.png"
+  alt="SevenBites"
+  className="h-12 w-auto sm:h-16 md:h-20 lg:h-24"
+/>
+  </Link>
             <p className="text-sm leading-relaxed text-gray-500 max-w-xs mb-6">
               Discover great food around you. Connecting food lovers with the best restaurants, delivering joy one meal at a time.
             </p>

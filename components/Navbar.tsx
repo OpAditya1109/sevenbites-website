@@ -39,15 +39,12 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <img
-            src="/logo.png"
-            alt="SevenBites"
-            className="w-8 h-8 group-hover:scale-105 transition-transform"
-          />
-          <span className="font-poppins font-bold text-xl text-gray-900">
-            Seven<span className="text-[#E23744]">Bites</span>
-          </span>
-        </Link>
+  <img
+    src="/logo_black.png"
+    alt="SevenBites"
+    className="h-8 w-auto sm:h-10 md:h-6 lg:h-14 transition-transform duration-300 group-hover:scale-105"
+  />
+</Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
