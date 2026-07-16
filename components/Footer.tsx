@@ -15,6 +15,8 @@ const legalLinks = [
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms & Conditions" },
   { href: "/refund-policy", label: "Refund Policy" },
+  { href: "/cancellation-policy", label: "Cancellation Policy" },
+
 ];
 
 const socialLinks = [
