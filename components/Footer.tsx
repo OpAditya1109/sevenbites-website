@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Flame, Globe, Share2, PlayCircle, X as XIcon } from "lucide-react";
+import { Globe, Share2, PlayCircle, X as XIcon } from "lucide-react";
 
 const quickLinks = [
   { href: "/", label: "Home" },
@@ -42,9 +42,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 gradient-primary rounded-xl flex items-center justify-center">
-                <Flame className="w-5 h-5 text-white" strokeWidth={2.5} />
-              </div>
+              <img src="/logo.png" alt="SevenBites" className="w-9 h-9" />
               <span className="font-poppins font-bold text-2xl text-white">
                 Seven<span className="text-[#E23744]">Bites</span>
               </span>

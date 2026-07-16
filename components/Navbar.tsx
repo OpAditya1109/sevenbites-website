@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Flame } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -39,9 +39,11 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-            <Flame className="w-4 h-4 text-white" strokeWidth={2.5} />
-          </div>
+          <img
+            src="/logo.png"
+            alt="SevenBites"
+            className="w-8 h-8 group-hover:scale-105 transition-transform"
+          />
           <span className="font-poppins font-bold text-xl text-gray-900">
             Seven<span className="text-[#E23744]">Bites</span>
           </span>
