@@ -1,28 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Shield,
-  Scale,
-  Database,
-  Globe,
-  Eye,
-  FileText,
-  Share2,
-  Clock,
-  Lock,
-  UserCheck,
-  Cookie,
-  Baby,
-  Link2,
-  AlertCircle,
-  RefreshCw,
-  Mail,
 
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 interface Section {
-  icon: LucideIcon;
   id: string;
   title: string;
   paragraphs: string[];
@@ -33,11 +13,11 @@ interface Section {
   };
   closingParagraphs?: string[];
 }
+
 const LAST_UPDATED = "July 16, 2026"; // update this each time the policy changes
 
 const sections: Section[] = [
   {
-    icon: Shield,
     id: "introduction",
     title: "1. Introduction",
     paragraphs: [
@@ -47,7 +27,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: Scale,
     id: "roles",
     title: "2. Roles Under Applicable Law",
     paragraphs: [
@@ -55,7 +34,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: Database,
     id: "information-we-collect",
     title: "3. Personal Data We Collect",
     paragraphs: [`We collect the following categories of personal data, depending on how you use the Platform:`],
@@ -72,7 +50,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: Globe,
     id: "how-we-collect",
     title: "4. How We Collect Personal Data",
     paragraphs: [
@@ -80,7 +57,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: Eye,
     id: "purpose-of-processing",
     title: "5. Purpose of Processing",
     paragraphs: [
@@ -103,7 +79,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: FileText,
     id: "legal-basis",
     title: "6. Legal Basis for Processing",
     paragraphs: [
@@ -111,7 +86,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: Share2,
     id: "sharing-disclosure",
     title: "7. Sharing and Disclosure of Personal Data",
     paragraphs: [`We may share your personal data with:`],
@@ -133,7 +107,6 @@ const sections: Section[] = [
     },
   },
   {
-    icon: Clock,
     id: "data-retention",
     title: "8. Data Retention",
     paragraphs: [
@@ -146,7 +119,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: Lock,
     id: "security-safeguards",
     title: "9. Security Safeguards",
     paragraphs: [
@@ -155,7 +127,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: UserCheck,
     id: "your-rights",
     title: "10. Your Rights as a Data Principal",
     paragraphs: [`Subject to applicable law, you have the right to:`],
@@ -172,7 +143,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: Cookie,
     id: "cookies",
     title: "11. Cookies and Tracking Technologies",
     paragraphs: [
@@ -180,7 +150,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: Baby,
     id: "childrens-privacy",
     title: "12. Children's Privacy",
     paragraphs: [
@@ -188,7 +157,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: Link2,
     id: "third-party-links",
     title: "13. Third-Party Links and Services",
     paragraphs: [
@@ -196,7 +164,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: AlertCircle,
     id: "grievance-officer",
     title: "14. Grievance Officer and Data Protection Contact",
     paragraphs: [
@@ -210,7 +177,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: RefreshCw,
     id: "changes-to-policy",
     title: "15. Changes to this Policy",
     paragraphs: [
@@ -218,7 +184,6 @@ const sections: Section[] = [
     ],
   },
   {
-    icon: Mail,
     id: "contact",
     title: "16. Contact Us",
     paragraphs: [
@@ -235,114 +200,87 @@ const sections: Section[] = [
 
 export default function PrivacyClient() {
   return (
-    <div className="min-h-screen bg-white pt-20">
-      {/* Hero */}
-      <section className="relative py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#F0F4FF] to-white" />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="w-16 h-16 bg-[#E23744]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Shield className="w-8 h-8 text-[#E23744]" />
-            </div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#E23744] mb-3 block">Legal</span>
-            <h1 className="font-poppins font-bold text-5xl text-gray-900 mb-4">Privacy Policy</h1>
-            <p className="text-gray-500 text-base max-w-xl mx-auto">
-              Your trust matters to us. Here's exactly how we handle your data — plainly and honestly, and in line with India's Digital Personal Data Protection Act, 2023.
-            </p>
-            <div className="mt-4 inline-flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-full px-4 py-2 text-xs text-gray-500">
-              <Clock className="w-3.5 h-3.5" />
-              Last updated: {LAST_UPDATED}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-0 pt-20 pb-24">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="font-poppins font-bold text-4xl sm:text-5xl text-gray-900 mb-4 tracking-tight">
+            Privacy Policy
+          </h1>
+          <p className="italic text-gray-500 text-base mb-10">
+            Last updated on {LAST_UPDATED}.
+          </p>
+        </motion.div>
 
-      {/* Table of Contents */}
-      <section className="border-y border-gray-100 bg-[#F8FAFC]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-wrap gap-2">
+        {/* Table of contents */}
+        <nav className="mb-12 pb-10 border-b border-gray-200">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
+            On this page
+          </p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5">
             {sections.map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                className="text-xs font-medium text-gray-600 hover:text-[#E23744] bg-white border border-gray-200 hover:border-[#E23744] rounded-full px-3 py-1.5 transition-colors"
-              >
-                {s.title}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Content */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-6">
-            {sections.map((section, i) => {
-              const Icon = section.icon;
-              return (
-                <motion.div
-                  key={section.id}
-                  id={section.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                  className="bg-white rounded-2xl p-8 border border-gray-100 card-shadow"
+              <li key={s.id}>
+                <a
+                  href={`#${s.id}`}
+                  className="text-sm text-gray-600 hover:text-[#E23744] hover:underline underline-offset-2 transition-colors"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#E23744]/10 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
-                      <Icon className="w-5 h-5 text-[#E23744]" />
-                    </div>
-                    <div className="flex-1">
-                      <h2 className="font-poppins font-bold text-xl text-gray-900 mb-3">{section.title}</h2>
+                  {s.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-                      {section.paragraphs.map((p, idx) => (
-                        <p key={idx} className="text-gray-600 leading-relaxed text-sm mb-3 last:mb-0">
-                          {p}
-                        </p>
-                      ))}
+        {/* Body */}
+        <div>
+          {sections.map((section) => (
+            <section key={section.id} id={section.id} className="scroll-mt-8 mb-10 last:mb-0">
+              <h2 className="font-poppins font-bold text-2xl text-gray-900 mb-4">
+                {section.title}
+              </h2>
 
-                      {section.bullets && (
-                        <ul className="list-disc pl-5 space-y-2 mb-3">
-                          {section.bullets.map((b, idx) => (
-                            <li key={idx} className="text-gray-600 leading-relaxed text-sm">
-                              {b}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+              {section.paragraphs.map((p, idx) => (
+                <p key={idx} className="text-gray-700 leading-relaxed text-base mb-4 last:mb-0">
+                  {p}
+                </p>
+              ))}
 
-                      {section.closingParagraphs?.map((p, idx) => (
-                        <p key={idx} className="text-gray-600 leading-relaxed text-sm mb-3 last:mb-0">
-                          {p}
-                        </p>
-                      ))}
+              {section.bullets && (
+                <ul className="list-disc pl-6 space-y-2.5 my-4">
+                  {section.bullets.map((b, idx) => (
+                    <li key={idx} className="text-gray-700 leading-relaxed text-base">
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-                      {section.subsection && (
-                        <div className="mt-4 pl-4 border-l-2 border-[#E23744]/20">
-                          <h3 className="font-poppins font-semibold text-sm text-gray-900 mb-2">
-                            {section.subsection.title}
-                          </h3>
-                          {section.subsection.paragraphs.map((p, idx) => (
-                            <p key={idx} className="text-gray-600 leading-relaxed text-sm mb-2 last:mb-0">
-                              {p}
-                            </p>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+              {section.closingParagraphs?.map((p, idx) => (
+                <p key={idx} className="text-gray-700 leading-relaxed text-base mb-4 last:mb-0">
+                  {p}
+                </p>
+              ))}
+
+              {section.subsection && (
+                <div className="mt-6 pl-5 border-l-2 border-gray-200">
+                  <h3 className="font-poppins font-semibold text-lg text-gray-900 mb-2">
+                    {section.subsection.title}
+                  </h3>
+                  {section.subsection.paragraphs.map((p, idx) => (
+                    <p key={idx} className="text-gray-700 leading-relaxed text-base mb-2 last:mb-0">
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </section>
+          ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 }
